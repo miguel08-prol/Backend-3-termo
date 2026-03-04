@@ -101,55 +101,40 @@ html {
                         <h3 class="text-lg font-bold text-slate-900 italic">Histórico Recente</h3>
                     </div>
 
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-slate-50">
-                            <thead>
-                                <tr class="bg-slate-50/50">
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Produto</th>
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Tipo</th>
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Quantidade</th>
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Motivo</th>
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Data / Hora</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-50">
-                                @foreach ($movimentacoes as $mov)
-                                <tr class="hover:bg-indigo-50/30 transition-all group">
-                                    <td class="px-8 py-6">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-indigo-600 group-hover:bg-white transition-colors">
-                                                <i class="ph-bold ph-package"></i>
-                                            </div>
-                                            <span class="text-sm font-bold text-slate-900">{{ $mov->produto->nome }}</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <span class="px-3 py-1 text-[10px] font-black rounded-lg uppercase tracking-widest {{ $mov->tipo == 'Entrada' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600' }}">
-                                            @if($mov->tipo == 'Entrada')
-                                                <i class="ph ph-trend-up mr-1"></i>
-                                            @else
-                                                <i class="ph ph-trend-down mr-1"></i>
-                                            @endif
-                                            {{ $mov->tipo }}
-                                        </span>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <span class="text-sm font-black text-slate-900 font-mono">{{ $mov->quantidade }}</span>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <span class="text-xs text-slate-500 font-medium">{{ $mov->motivo }}</span>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <div class="text-xs font-bold text-slate-400 tracking-tight">
-                                            {{ $mov->created_at->format('d/m/Y') }}
-                                            <span class="block text-[10px] font-medium opacity-60">{{ $mov->created_at->format('H:i') }}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+<div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-slate-50">
+        <thead>
+            <tr class="bg-slate-50/50">
+                <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Produto</th>
+                <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Tipo</th>
+                <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Quantidade</th>
+                <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Motivo</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-50">
+            @foreach ($movimentacoes as $mov)
+            <tr class="hover:bg-indigo-50/30 transition-all group">
+                <td class="px-8 py-6">
+                    <div class="text-sm font-bold text-slate-900">{{ $mov->produto->nome ?? 'Produto Indisponível' }}</div>
+                </td>
+                <td class="px-8 py-6">
+                    <span class="px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest {{ $mov->tipo == 'Entrada' ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600' }}">
+                        {{ $mov->tipo }}
+                    </span>
+                </td>
+                <td class="px-8 py-6">
+                    <span class="text-sm font-black text-slate-900 font-mono italic">
+                        {{ $mov->quantidade ?? 0 }} <small class="text-slate-400 font-medium">un</small>
+                    </span>
+                </td>
+                <td class="px-8 py-6">
+                    <span class="text-xs text-slate-500 font-medium italic">{{ $mov->motivo ?? 'Sem motivo' }}</span>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
                     
                     <div class="p-8 border-t border-slate-50 bg-slate-50/30">
                         {{ $movimentacoes->links() }}

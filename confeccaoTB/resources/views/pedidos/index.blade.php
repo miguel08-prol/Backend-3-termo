@@ -6,15 +6,10 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .gradient-bg { background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); }
-        ::-webkit-scrollbar {
-    display: none;
-}
-
-/* Esconde a barra de rolagem no IE, Edge e Firefox */
-html {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
+        
+        /* Esconde a barra de rolagem */
+        ::-webkit-scrollbar { display: none; }
+        html { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 
     <div class="flex min-h-screen bg-[#F8FAFC]" x-data="{ sidebarOpen: true }">
@@ -26,54 +21,49 @@ html {
                 <div class="gradient-bg p-2.5 rounded-2xl text-white shadow-lg shrink-0">
                     <i class="ph-fill ph-needle-thread text-2xl"></i>
                 </div>
-                <span x-show="sidebarOpen" x-transition.opacity class="text-xl font-black tracking-tighter text-slate-900 italic">Confecção<span class="text-indigo-600">PRO</span></span>
+                <span x-show="sidebarOpen" x-transition.opacity class="text-xl font-black tracking-tighter text-slate-900 italic">
+                    Confecção<span class="text-indigo-600">PRO</span>
+                </span>
             </div>
 
-<nav class="flex-1 px-4 space-y-3">
-    <p x-show="sidebarOpen" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4 mb-4">Principal</p>
-    
-    <a href="{{ route('dashboard') }}" 
-       class="flex items-center gap-4 p-4 rounded-2xl transition-all group {{ request()->routeIs('dashboard') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600' }}">
-        <i class="{{ request()->routeIs('dashboard') ? 'ph-fill' : 'ph-bold' }} ph-house text-2xl"></i>
-        <span x-show="sidebarOpen" x-transition.opacity>Painel Geral</span>
-    </a>
+            <nav class="flex-1 px-4 space-y-3">
+                <p x-show="sidebarOpen" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4 mb-4">Principal</p>
+                
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-4 p-4 rounded-2xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all">
+                    <i class="ph-bold ph-house text-2xl"></i>
+                    <span x-show="sidebarOpen" x-transition.opacity>Painel Geral</span>
+                </a>
 
-    <a href="{{ route('pedidos.index') }}" 
-       class="flex items-center gap-4 p-4 rounded-2xl transition-all group {{ request()->routeIs('pedidos.*') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600' }}">
-        <i class="{{ request()->routeIs('pedidos.*') ? 'ph-fill' : 'ph-bold' }} ph-clipboard-text text-2xl"></i>
-        <span x-show="sidebarOpen" x-transition.opacity>Pedidos / O.S</span>
-    </a>
+                <a href="{{ route('pedidos.index') }}" class="flex items-center gap-4 p-4 rounded-2xl bg-indigo-50 text-indigo-600 font-bold shadow-sm transition-all">
+                    <i class="ph-fill ph-clipboard-text text-2xl"></i>
+                    <span x-show="sidebarOpen" x-transition.opacity>Pedidos / O.S</span>
+                </a>
 
-    <a href="{{ route('produtos.index') }}" 
-       class="flex items-center gap-4 p-4 rounded-2xl transition-all group {{ request()->routeIs('produtos.*') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600' }}">
-        <i class="{{ request()->routeIs('produtos.*') ? 'ph-fill' : 'ph-bold' }} ph-coat-hanger text-2xl"></i>
-        <span x-show="sidebarOpen" x-transition.opacity>Meus Produtos</span>
-    </a>
+                <a href="{{ route('produtos.index') }}" class="flex items-center gap-4 p-4 rounded-2xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all">
+                    <i class="ph-bold ph-coat-hanger text-2xl"></i>
+                    <span x-show="sidebarOpen" x-transition.opacity>Meus Produtos</span>
+                </a>
 
-    <a href="{{ route('clientes.index') }}" 
-       class="flex items-center gap-4 p-4 rounded-2xl transition-all group {{ request()->routeIs('clientes.*') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600' }}">
-        <i class="{{ request()->routeIs('clientes.*') ? 'ph-fill' : 'ph-bold' }} ph-users-three text-2xl"></i>
-        <span x-show="sidebarOpen" x-transition.opacity>Clientes</span>
-    </a>
+                <a href="{{ route('clientes.index') }}" class="flex items-center gap-4 p-4 rounded-2xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all">
+                    <i class="ph-bold ph-users-three text-2xl"></i>
+                    <span x-show="sidebarOpen" x-transition.opacity>Clientes</span>
+                </a>
 
-    <p x-show="sidebarOpen" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4 mt-8 mb-4">Gestão de Insumos</p>
+                <p x-show="sidebarOpen" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4 mt-8 mb-4">Gestão</p>
 
-    <a href="{{ route('estoque.index') }}" 
-       class="flex items-center gap-4 p-4 rounded-2xl transition-all group {{ request()->routeIs('estoque.*') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600' }}">
-        <i class="{{ request()->routeIs('estoque.*') ? 'ph-fill' : 'ph-bold' }} ph-package text-2xl"></i>
-        <span x-show="sidebarOpen" x-transition.opacity>Estoque / Insumos</span>
-    </a>
+                <a href="{{ route('estoque.index') }}" class="flex items-center gap-4 p-4 rounded-2xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all">
+                    <i class="ph-bold ph-package text-2xl"></i>
+                    <span x-show="sidebarOpen" x-transition.opacity>Estoque / Insumos</span>
+                </a>
 
-    <a href="{{ route('fornecedores.index') }}" 
-       class="flex items-center gap-4 p-4 rounded-2xl transition-all group {{ request()->routeIs('fornecedores.*') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600' }}">
-        <i class="{{ request()->routeIs('fornecedores.*') ? 'ph-fill' : 'ph-bold' }} ph-truck text-2xl"></i>
-        <span x-show="sidebarOpen" x-transition.opacity>Fornecedores</span>
-    </a>
-</nav>
+                  <a href="{{ route('fornecedores.index') }}" class="flex items-center gap-4 p-4 rounded-2xl text-slate-500 hover:bg-slate-50 hover:text-indigo-600 transition-all group">
+                    <i class="ph-bold ph-truck text-2xl"></i>
+                    <span x-show="sidebarOpen" x-transition.opacity>Fornecedores</span>
+                </a>
+            </nav>
 
             <div class="p-6 mt-auto border-t border-slate-50">
-                <button @click="sidebarOpen = !sidebarOpen" 
-                        class="w-full flex items-center justify-center p-3 rounded-2xl bg-slate-50 text-slate-400 hover:text-indigo-600 transition-all">
+                <button @click="sidebarOpen = !sidebarOpen" class="w-full flex items-center justify-center p-3 rounded-2xl bg-slate-50 text-slate-400 hover:text-indigo-600 transition-all">
                     <i class="ph-bold text-xl" :class="sidebarOpen ? 'ph-caret-double-left' : 'ph-caret-double-right'"></i>
                 </button>
             </div>
@@ -83,10 +73,10 @@ html {
             
             <header class="h-24 flex items-center justify-between px-10 bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-40">
                 <div data-aos="fade-right">
-                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Gestão de Pedidos</h2>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight italic">Gestão de Pedidos</h2>
                 </div>
                 
-                <div class="flex items-center gap-4" data-aos="fade-left">
+                <div data-aos="fade-left">
                     <a href="{{ route('pedidos.create') }}" class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center gap-2">
                         <i class="ph ph-plus-circle text-xl"></i>
                         Novo Pedido
@@ -98,20 +88,18 @@ html {
                 <div class="bg-white rounded-[3rem] border border-slate-100 shadow-sm overflow-hidden" data-aos="fade-up">
                     <div class="p-8 border-b border-slate-50 flex justify-between items-center">
                         <h3 class="text-lg font-bold text-slate-900">Ordens de Serviço Ativas</h3>
-                        <div class="flex gap-2">
-                            <span class="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest italic">Total: {{ $pedidos->total() }}</span>
-                        </div>
+                        <span class="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest italic">Total: {{ $pedidos->total() }}</span>
                     </div>
 
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-slate-50">
                             <thead>
                                 <tr class="bg-slate-50/50">
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Cliente</th>
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Produto / O.S</th>
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Valor Total</th>
-                                    <th class="px-8 py-5 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Data do Pedido</th>
-                                    <th class="px-8 py-5 text-center text-xs font-black text-slate-400 uppercase tracking-widest">Ações</th>
+                                    <th class="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Cliente</th>
+                                    <th class="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Produto / O.S</th>
+                                    <th class="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Valor Total</th>
+                                    <th class="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Data do Pedido</th>
+                                    <th class="px-8 py-5 text-center text-[10px] font-black text-slate-400 uppercase tracking-widest">Ações</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-50">
@@ -137,8 +125,12 @@ html {
                                         <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Qtd: {{ $pedido->quantidade }}</div>
                                     </td>
                                     <td class="px-8 py-6">
-                                        <div class="text-sm font-medium text-slate-600">{{ $pedido->created_at->format('d/m/Y') }}</div>
-                                        <div class="text-[10px] text-slate-400 font-bold uppercase">{{ $pedido->created_at->format('H:i') }}</div>
+                                        <div class="text-sm font-bold text-slate-700">
+                                            {{ \Carbon\Carbon::parse($pedido->created_at)->format('d/m/Y') }}
+                                        </div>
+                                        <div class="text-[10px] text-slate-400 font-black uppercase tracking-tight">
+                                            {{ \Carbon\Carbon::parse($pedido->created_at)->format('H:i') }}
+                                        </div>
                                     </td>
                                     <td class="px-8 py-6 text-center">
                                         <div class="flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -161,16 +153,15 @@ html {
         </main>
     </div>
 
-    {{-- Modal de Exclusão Premium --}}
     <div id="deleteModal" class="fixed inset-0 z-[100] hidden" role="dialog">
         <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
         <div class="flex min-h-full items-center justify-center p-4">
-            <div class="relative bg-white rounded-[2.5rem] p-8 max-w-sm w-full shadow-2xl transition-all border border-slate-100">
+            <div class="relative bg-white rounded-[2.5rem] p-8 max-w-sm w-full shadow-2xl border border-slate-100">
                 <div class="w-16 h-16 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <i class="ph-fill ph-warning text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-black text-slate-900 text-center mb-2 tracking-tight italic">Excluir Pedido?</h3>
-                <p class="text-slate-500 text-center text-sm mb-8 font-medium leading-relaxed">Você está prestes a remover a ordem de <span id="itemNameSpan" class="font-bold text-slate-900"></span>. Esta ação não pode ser revertida.</p>
+                <p class="text-slate-500 text-center text-sm mb-8 font-medium">Você está prestes a remover a ordem de <span id="itemNameSpan" class="font-bold text-slate-900"></span>.</p>
                 
                 <div class="flex gap-3">
                     <button onclick="closeDeleteModal()" class="flex-1 py-4 bg-slate-50 text-slate-500 rounded-2xl font-bold text-sm hover:bg-slate-100 transition">Cancelar</button>

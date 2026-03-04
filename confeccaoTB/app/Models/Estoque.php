@@ -15,4 +15,9 @@ class Estoque extends Model
     {
         return $this->belongsTo(Produto::class);
     }
+
+    // Dentro do seu Model
+protected $casts = [
+    'created_at' => 'datetime',
+];
 }

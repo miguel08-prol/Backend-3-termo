@@ -16,4 +16,8 @@ class Pedido extends Model
     {
         return $this->belongsTo(clientes::class, 'cliente_id');
     }
+protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }
