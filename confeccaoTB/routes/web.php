@@ -11,11 +11,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+//Rotas para estruturas de cientes para cadastro,edição e exclusão
+//Rotas para montar o formulario
+Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+//Rota para editar os dados
+// Route::get('/clientes/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+//Rota para receber os dados e salvar(post)
+Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
+Route::resource('clientes', ClienteController::class); 
+
+
 Route::resource('estoque', EstoqueController::class);
 Route::resource('fornecedores', FornecedorController::class);
 Route::resource('produtos', ProdutoController::class);
 Route::resource('pedidos', PedidoController::class);
-Route::resource('clientes', ClienteController::class); 
+
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

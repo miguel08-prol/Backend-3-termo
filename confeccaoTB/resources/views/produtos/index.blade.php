@@ -26,7 +26,7 @@ html {
                 <div class="gradient-bg p-2.5 rounded-2xl text-white shadow-lg shrink-0">
                     <i class="ph-fill ph-needle-thread text-2xl"></i>
                 </div>
-                <span x-show="sidebarOpen" x-transition.opacity class="text-xl font-black tracking-tighter text-slate-900 italic">Confecção<span class="text-indigo-600">PRO</span></span>
+                <span x-show="sidebarOpen" x-transition.opacity class="text-xl font-black tracking-tighter text-slate-900 italic">Maestria<span class="text-indigo-600">Têxtil</span></span>
             </div>
 
 <nav class="flex-1 px-4 space-y-3">
@@ -56,7 +56,7 @@ html {
         <span x-show="sidebarOpen" x-transition.opacity>Clientes</span>
     </a>
 
-    <p x-show="sidebarOpen" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4 mt-8 mb-4">Gestão de Insumos</p>
+    <p x-show="sidebarOpen" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4 mt-8 mb-4">Gestão</p>
 
     <a href="{{ route('estoque.index') }}" 
        class="flex items-center gap-4 p-4 rounded-2xl transition-all group {{ request()->routeIs('estoque.*') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600' }}">
@@ -152,6 +152,38 @@ html {
                 </div>
             </div>
         </main>
+
+        @if(session('success'))
+<div id="toast-notif" data-aos="fade-left" class="fixed top-10 right-10 z-[110] flex items-center gap-4 bg-white/95 backdrop-blur-xl p-6 rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-emerald-100 min-w-[380px]">
+    <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-white shadow-lg shrink-0">
+        <i class="ph-fill ph-check-circle text-2xl"></i>
+    </div>
+    <div class="flex-1">
+        <h4 class="text-slate-900 font-black italic text-sm">Operação Concluída</h4>
+        <p class="text-slate-500 text-xs font-medium">{{ session('success') }}</p>
+    </div>
+    <div class="absolute bottom-0 left-8 right-8 h-1 bg-slate-50 rounded-full overflow-hidden">
+        <div class="h-full bg-emerald-500 toast-progress"></div>
+    </div>
+</div>
+
+<style>
+    .toast-progress { animation: progress 4s linear forwards; }
+    @keyframes progress { from { width: 100%; } to { width: 0%; } }
+</style>
+
+<script>
+    setTimeout(() => {
+        const toast = document.getElementById('toast-notif');
+        if(toast) {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(50px)';
+            toast.style.transition = 'all 0.6s ease';
+            setTimeout(() => toast.remove(), 600);
+        }
+    }, 4000);
+</script>
+@endif
     </div>
 
     <div id="deleteModal" class="fixed inset-0 z-[100] hidden" role="dialog">

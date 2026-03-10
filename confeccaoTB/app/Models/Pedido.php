@@ -11,13 +11,23 @@ class Pedido extends Model
 
     protected $fillable = ['cliente_id', 'produto', 'valor', 'quantidade'];
 
-    // Relacionamento: Um pedido pertence a um cliente
+    // Relacionamento com o cliente
     public function cliente()
     {
         return $this->belongsTo(clientes::class, 'cliente_id');
     }
-protected $casts = [
+
+    // Casts para garantir precisão matemática
+    protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'valor'      => 'decimal:2',
+        'quantidade' => 'integer',
     ];
+
+    // Atributo dinâmico para facilitar a exibição do total
+    public function getTotalAttribute()
+    {
+        return $this->valor * $this->quantidade;
+    }
 }

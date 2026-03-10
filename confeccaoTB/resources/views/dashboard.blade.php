@@ -26,7 +26,7 @@ html {
                 <div class="gradient-bg p-2.5 rounded-2xl text-white shadow-lg shrink-0">
                     <i class="ph-fill ph-needle-thread text-2xl"></i>
                 </div>
-                <span x-show="sidebarOpen" x-transition.opacity class="text-xl font-black tracking-tighter text-slate-900 italic">Confecção<span class="text-indigo-600">PRO</span></span>
+                <span x-show="sidebarOpen" x-transition.opacity class="text-xl font-black tracking-tighter text-slate-900 italic">Maestria<span class="text-indigo-600">Têxtil</span></span>
             </div>
 
 <nav class="flex-1 px-4 space-y-3">
@@ -56,7 +56,7 @@ html {
         <span x-show="sidebarOpen" x-transition.opacity>Clientes</span>
     </a>
 
-    <p x-show="sidebarOpen" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4 mt-8 mb-4">Gestão de Insumos</p>
+    <p x-show="sidebarOpen" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4 mt-8 mb-4">Gestão</p>
 
     <a href="{{ route('estoque.index') }}" 
        class="flex items-center gap-4 p-4 rounded-2xl transition-all group {{ request()->routeIs('estoque.*') ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600' }}">

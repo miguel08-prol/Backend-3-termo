@@ -18,7 +18,7 @@
                 <div class="gradient-bg p-2.5 rounded-2xl text-white shadow-lg shrink-0">
                     <i class="ph-fill ph-needle-thread text-2xl"></i>
                 </div>
-                <span x-show="sidebarOpen" x-transition.opacity class="text-xl font-black tracking-tighter text-slate-900 italic">Confecção<span class="text-indigo-600">PRO</span></span>
+                <span x-show="sidebarOpen" x-transition.opacity class="text-xl font-black tracking-tighter text-slate-900 italic">Maestria<span class="text-indigo-600">Têxtil</span></span>
             </div>
 
             <nav class="flex-1 px-4 space-y-3">

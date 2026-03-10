@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Confecção Pro | O Sistema Definitivo</title>
+    
+    <title>Maestria Têxtil | O Sistema Definitivo</title>
+
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
         .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); }
@@ -46,7 +47,7 @@ html {
                 <div class="gradient-bg p-2 rounded-xl text-white shadow-lg shadow-indigo-200">
                     <i class="ph-fill ph-needle-thread text-xl"></i>
                 </div>
-                <span class="text-xl font-extrabold tracking-tighter italic">Confecção<span class="text-indigo-600">PRO</span></span>
+                <span class="text-xl font-extrabold tracking-tighter italic">Maestria<span class="text-indigo-600">Têxtil</span></span>
             </div>
             
             <div class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600">
@@ -75,7 +76,7 @@ html {
                 Sua produção na palma <br> da sua <span class="text-gradient">mão.</span>
             </h1>
             <p class="text-xl text-slate-500 max-w-2xl mx-auto mb-12 font-medium leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-                Pare de perder dinheiro com retalhos e atrasos. O ConfecçãoPro organiza seu estoque, clientes e ordens de serviço de forma automática.
+                Pare de perder dinheiro com retalhos e atrasos. A MaestriaTêxtil organiza seu estoque, clientes e ordens de serviço de forma automática.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" data-aos="fade-up" data-aos-delay="300">
                 <a href="{{ route('register') }}" class="w-full sm:w-auto px-10 py-5 gradient-bg text-white rounded-2xl font-bold text-lg shadow-2xl shadow-indigo-300 hover:scale-105 transition-all">
@@ -112,7 +113,7 @@ html {
         <div class="max-w-6xl mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center gap-16">
                 <div class="md:w-1/2" data-aos="fade-right">
-                    <h2 class="text-4xl font-extrabold tracking-tighter mb-6">Como o ConfecçãoPRO <br> organiza seu caos:</h2>
+                    <h2 class="text-4xl font-extrabold tracking-tighter mb-6">Como a MaestriaTêxtil <br> organiza seu caos:</h2>
                     <div class="space-y-8 mt-10">
                         <div class="flex gap-4">
                             <div class="w-12 h-12 shrink-0 bg-white rounded-2xl flex items-center justify-center shadow-md text-indigo-600 font-bold text-xl">1</div>
@@ -165,7 +166,7 @@ html {
                     <div class="gradient-bg p-2 rounded-xl text-white">
                         <i class="ph-fill ph-needle-thread text-xl"></i>
                     </div>
-                    <span class="text-xl font-extrabold tracking-tighter italic">ConfecçãoPRO</span>
+                    <span class="text-xl font-extrabold tracking-tighter italic">MaestriaTêxtil</span>
                 </div>
                 <p class="text-slate-400 font-medium">Elevando o padrão da costura brasileira através da tecnologia.</p>
             </div>
@@ -194,7 +195,7 @@ html {
             </div>
         </div>
         <div class="max-w-6xl mx-auto px-6 border-t border-slate-50 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between text-slate-400 text-xs font-bold uppercase tracking-widest">
-            <p>&copy; {{ date('Y') }} Confecção PRO. Todos os direitos reservados.</p>
+            <p>&copy; {{ date('Y') }} MaestriaTêxtil. Todos os direitos reservados.</p>
             <div class="flex gap-6 justify-center mt-4 md:mt-0">
                 <a href="#">Privacidade</a>
                 <a href="#">Termos</a>
