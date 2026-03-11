@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class clientes extends Model
 {
+    use HasFactory; // Colocado no local correto
+
+    protected $fillable = ['nome', 'cpf', 'email', 'telefone', 'endereco'];
+
+    // Relacionamento: Um cliente tem muitos pedidos
     public function pedidos()
-{
-    return $this->hasMany(Pedidos::class, 'cliente_id');
+    {
+        // Certifica-te que o Model de Pedidos chama-se 'Pedido' ou 'Pedidos'
+        return $this->hasMany(Pedido::class, 'cliente_id');
+    }
 }
-use HasFactory;
-protected $fillable = ['nome','cpf','email','telefone','endereco'];
-}
-
-

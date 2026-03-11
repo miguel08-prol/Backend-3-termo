@@ -2,58 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Clientes; // Mantenha 'Clientes' se este for o nome do seu arquivo em app/Models
+use App\Models\clientes;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    // Listagem
- public function index(Request $request)
-{
-    $query = Clientes::query();
+    // Listagem com Busca
+    public function index(Request $request)
+    {
+        $query = clientes::query();
 
-    // Filtro de Busca
-    if ($request->has('search')) {
-        $query->where('nome', 'LIKE', '%' . $request->search . '%')
-              ->orWhere('cpf', 'LIKE', '%' . $request->search . '%');
+        if ($request->has('search')) {
+            $query->where('nome', 'LIKE', '%' . $request->search . '%')
+                  ->orWhere('cpf', 'LIKE', '%' . $request->search . '%');
+        }
+
+        $clientes = $query->orderBy('nome', 'asc')->paginate(9);
+        return view('clientes.index', compact('clientes'));
     }
 
-    // Ordem Alfabética (A-Z)
-    $clientes = $query->orderBy('nome', 'asc')->paginate(9);
-
-    return view('clientes.index', compact('clientes'));
-}
-
-    // Exibe o formulário de cadastro
+    // Formulário de Criação
     public function create() 
     {
         return view('clientes.create');
     }
 
-    // Recebe os dados do formulário e salva no banco de dados
+    // Salvar Novo Cliente
     public function store(Request $request) 
     {
-        // 1. Validação (Corrigido de 'validade' para 'validate')
-        // Importante: No 'unique', use o nome da TABELA no banco de dados (geralmente 'clientes')
         $request->validate([
             'nome'     => 'required|string|max:255',
-            'cpf'      => 'required|string|unique:clientes', 
-            'email'    => 'required|email|unique:clientes',
+            'cpf'      => 'required|string|unique:clientes,cpf', 
+            'email'    => 'required|email|unique:clientes,email',
             'telefone' => 'required|string',
             'endereco' => 'required|string',
         ]);
 
-        // 2. Salva o cliente (Corrigido para usar o Model 'Clientes' que você importou)
-        Clientes::create($request->all());
+        clientes::create($request->all());
 
-        // 3. Redireciona (Corrigido 'sucess' para 'success')
         return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
     }
 
-    // Função para excluir (Útil para o botão de lixeira da sua tabela)
+    // Abrir Formulário de Edição (Causa do erro anterior corrigida)
+  public function edit($id)
+{
+    // O Laravel recebe o ID da URL (ex: /clientes/5/edit) e coloca na variável $id
+    $cliente = \App\Models\clientes::findOrFail($id);
+    
+    // Retorna a view 'clientes.edit' (o arquivo edit.blade.php que você enviou)
+    return view('clientes.edit', compact('cliente'));
+}
+
+    // Atualizar Dados
+    public function update(Request $request, $id) 
+    {
+        $cliente = clientes::findOrFail($id);
+
+        $request->validate([
+            'nome'     => 'required|string|max:255',
+            // O id no final ignora o registo atual na validação de "único"
+            'cpf'      => 'required|string|unique:clientes,cpf,' . $id,
+            'email'    => 'required|email|unique:clientes,email,' . $id,
+            'telefone' => 'required|string',
+            'endereco' => 'required|string',
+        ]);
+
+        $cliente->update($request->all());
+
+        return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso!');
+    }
+
+    // Eliminar Cliente
     public function destroy($id)
     {
-        $cliente = Clientes::findOrFail($id);
+        $cliente = clientes::findOrFail($id);
         $cliente->delete();
         
         return redirect()->route('clientes.index')->with('success', 'Cliente removido com sucesso!');

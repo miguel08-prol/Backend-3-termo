@@ -56,4 +56,30 @@ class EstoqueController extends Controller
         return redirect()->route('estoque.index')
             ->with('success', 'Registro removido do histórico.');
     }
+
+    // Adicione estes métodos ao seu EstoqueController
+
+public function edit($id)
+{
+    $movimentacao = Estoque::findOrFail($id);
+    $produtos = Produto::all(); // Necessário para o select de produtos
+    
+    return view('estoque.edit', compact('movimentacao', 'produtos'));
+}
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'produto_id' => 'required|exists:produtos,id',
+        'quantidade' => 'required|numeric|min:1',
+        'tipo'       => 'required|in:Entrada,Saída',
+        'motivo'     => 'nullable|string|max:255',
+    ]);
+
+    $movimentacao = Estoque::findOrFail($id);
+    $movimentacao->update($request->all());
+
+    return redirect()->route('estoque.index')
+        ->with('success', 'Movimentação atualizada com sucesso!');
+}
 }
