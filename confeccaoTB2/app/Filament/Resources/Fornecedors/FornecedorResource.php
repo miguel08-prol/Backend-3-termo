@@ -6,10 +6,11 @@ use App\Filament\Resources\Fornecedors\Pages\CreateFornecedor;
 use App\Filament\Resources\Fornecedors\Pages\EditFornecedor;
 use App\Filament\Resources\Fornecedors\Pages\ListFornecedors;
 use App\Filament\Resources\Fornecedors\Pages\ViewFornecedor;
-use App\Filament\Resources\Fornecedors\Schemas\FornecedorInfolist;
 use App\Models\Fornecedor;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\Layout\Stack; // Adicionado
+use Filament\Tables\Columns\Layout\Split; // Adicionado
 use Filament\Support\RawJs;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -23,7 +24,14 @@ class FornecedorResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Fornecedores';
+    protected static ?string $navigationLabel = 'Fornecedor';
+
+protected static ?string $modelLabel = 'Fornecedor';
+
+
+protected static ?string $pluralModelLabel = 'Fornecedor';
+
+    protected static ?string $recordTitleAttribute = 'nome';
 
     public static function form(Schema $schema): Schema
     {
@@ -35,6 +43,7 @@ class FornecedorResource extends Resource
                 
                 TextInput::make('email')
                     ->required()
+                    ->email()
                     ->label('Email'),
                 
                 TextInput::make('telefone')
@@ -51,36 +60,56 @@ class FornecedorResource extends Resource
             ]);
     }
 
-    public static function infolist(Schema $schema): Schema
-    {
-        return FornecedorInfolist::configure($schema);
-    }
+    /**
+     * Define como as informações aparecem na tela de Visualização (View).
+     */
+
 
     public static function table(Table $table): Table
     {
-        return $table->columns([
-            TextColumn::make('nome')
-                ->label('Fornecedor')
-                ->searchable(),
-            
-            TextColumn::make('email')
-                ->label('Email')
-                ->searchable(),
-            
-            TextColumn::make('telefone')
-                ->label('Telefone'),
-            
-            TextColumn::make('documento')
-                ->label('Documento')
-                ->searchable(),
-        ]);
-    }
+        return $table
+            // Ativa o layout de grade (Cards)
+            ->contentGrid([
+                'md' => 2,
+                'xl' => 3,
+            ])
+            ->columns([
+                Stack::make([
+                    // Nome do Fornecedor em destaque
+                    TextColumn::make('nome')
+                        ->weight('bold')
+                        ->size('lg')
+                        ->searchable()
+                        ->sortable(),
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
+                    // Email e Telefone lado a lado
+                    Split::make([
+                        TextColumn::make('email')
+                            ->icon('heroicon-m-envelope')
+                            ->color('gray')
+                            ->size('xs')
+                            ->searchable(),
+
+                        TextColumn::make('telefone')
+                            ->icon('heroicon-m-phone')
+                            ->color('gray')
+                            ->size('xs')
+                            ->alignEnd(),
+                    ]),
+
+                    // Documento (CPF/CNPJ) na parte inferior
+                    TextColumn::make('documento')
+                        ->label('Documento')
+                        ->fontFamily('mono')
+                        ->color('primary')
+                        ->size('xs')
+                        ->formatStateUsing(fn ($state) => "Doc: {$state}"),
+                ])
+                ->space(3)
+                ->extraAttributes([
+                    'class' => 'p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:border-primary-500 transition',
+                ]),
+            ]);
     }
 
     public static function getPages(): array

@@ -16,4 +16,19 @@ class ViewProduto extends ViewRecord
             EditAction::make(),
         ];
     }
+
+    /**
+     * Garante que os campos de estoque sejam preenchidos na visualização.
+     */
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $estoque = $this->record->estoque;
+
+        if ($estoque) {
+            $data['estoque_quantidade'] = $estoque->quantidade;
+            $data['estoque_minimo'] = $estoque->quantidade_minima;
+        }
+
+        return $data;
+    }
 }

@@ -28,6 +28,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->favicon(asset('favicon.svg'))
+            ->brandName('TB2 Confecção')
             ->colors([
                 'primary' => Color::Amber,
             ])

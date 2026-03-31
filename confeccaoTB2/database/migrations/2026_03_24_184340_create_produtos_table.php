@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('referencia')->nulltable();
-            $table->decimal('preco_venda', 10, 2)->nulltable();
+            $table->string('referencia')->nullable();
+            $table->decimal('preco_venda', 10, 2)->nullable();
             $table->timestamps();
         });
     }
@@ -23,8 +23,14 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('produtos');
-    }
+public function down(): void
+{
+    // Desativa a checagem
+    Schema::disableForeignKeyConstraints();
+    
+    Schema::dropIfExists('produtos');
+    
+    // Ativa novamente
+    Schema::enableForeignKeyConstraints();
+}
 };

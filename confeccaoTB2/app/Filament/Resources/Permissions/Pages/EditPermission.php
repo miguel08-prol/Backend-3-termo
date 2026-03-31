@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\Estoques\Pages;
+namespace App\Filament\Resources\Permissions\Pages;
 
-use App\Filament\Resources\Estoques\EstoqueResource;
+use App\Filament\Resources\Permissions\PermissionResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditEstoque extends EditRecord
+class EditPermission extends EditRecord
 {
-    protected static string $resource = EstoqueResource::class;
+    protected static string $resource = PermissionResource::class;
 
     protected function getHeaderActions(): array
     {

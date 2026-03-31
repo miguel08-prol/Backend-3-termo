@@ -3,24 +3,30 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Produto extends Model
 {
+    protected $guarded = [];
 
- protected $guarded = [];
- 
-public function itensPedido() 
+    // Define a relação com a tabela estoques
+public function estoque(): HasOne
 {
-    return $this->hasMany(ItemPedido::class);
+    return $this->hasOne(Estoque::class);
 }
 
-
-public function baixarEstoque(int $quantidade)
-{
-    if ($this->estoque->quantidade < $quantidade) {
-        throw new \Exception("Estoque insuficiente para o produto: {$this->nome}");
+    public function itensPedido() 
+    {
+        return $this->hasMany(ItemPedido::class);
     }
 
-    $this->estoque->decrement('quantidade', $quantidade);
-}
+    public function baixarEstoque(int $quantidade)
+    {
+        // Note o uso de $this->estoque (relação)
+        if (!$this->estoque || $this->estoque->quantidade < $quantidade) {
+            throw new \Exception("Estoque insuficiente para o produto: {$this->nome}");
+        }
+
+        $this->estoque->decrement('quantidade', $quantidade);
+    }
 }

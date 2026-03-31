@@ -2,23 +2,21 @@
 
 namespace App\Filament\Resources\Produtos;
 
-use Filament\Tables\Columns\TextColumn;
-use Filament\Support\RawJs;
+use App\Models\Produto;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Support\Icons\Heroicon;
 use App\Filament\Resources\Produtos\Pages\CreateProduto;
 use App\Filament\Resources\Produtos\Pages\EditProduto;
 use App\Filament\Resources\Produtos\Pages\ListProdutos;
 use App\Filament\Resources\Produtos\Pages\ViewProduto;
-use App\Filament\Resources\Produtos\Schemas\ProdutoForm;
-use App\Filament\Resources\Produtos\Schemas\ProdutoInfolist;
-use App\Filament\Resources\Produtos\Tables\ProdutosTable;
-use App\Models\Produto;
-use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\Layout\Stack;
+use Filament\Tables\Columns\Layout\Split;
 use BackedEnum;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
 
 class ProdutoResource extends Resource
 {
@@ -26,7 +24,7 @@ class ProdutoResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Produto';
+    protected static ?string $recordTitleAttribute = 'nome';
 
     public static function form(Schema $schema): Schema
     {
@@ -47,8 +45,9 @@ class ProdutoResource extends Resource
                     ->prefix('R$')
                     ->placeholder('0,00'),
 
-                Select::make('estoque')
-                    ->label('Quantidade em Estoque')
+                // Campos que não existem na tabela 'produtos', mas usaremos para criar o estoque
+                Select::make('estoque_quantidade')
+                    ->label('Quantidade Inicial em Estoque')
                     ->options([
                         0 => 'Esgotado (0)',
                         10 => 'Padrão (10)',
@@ -59,45 +58,58 @@ class ProdutoResource extends Resource
                     ->default(0)
                     ->required()
                     ->native(false),
-            ]);
-    }
 
-    public static function infolist(Schema $schema): Schema
-    {
-        return ProdutoInfolist::configure($schema);
+                TextInput::make('estoque_minimo')
+                    ->label('Mínimo para Alerta')
+                    ->numeric()
+                    ->default(1)
+                    ->required(),
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            // Ativa a grade de cards (ajusta conforme a tela)
+            ->contentGrid([
+                'md' => 2,
+                'xl' => 3,
+            ])
             ->columns([
-                TextColumn::make('nome')
-                    ->label('Produto')
-                    ->searchable()
-                    ->sortable(),
+                Stack::make([
+                    // Linha superior: Nome e Preço
+                    Split::make([
+                        TextColumn::make('nome')
+                            ->weight('bold')
+                            ->searchable()
+                            ->sortable(),
 
-                TextColumn::make('referencia')
-                    ->label('Ref.')
-                    ->searchable(),
+                        TextColumn::make('preco_venda')
+                            ->money('BRL')
+                            ->alignEnd()
+                            ->grow(false),
+                    ]),
 
-                TextColumn::make('preco_venda')
-                    ->label('Preço')
-                    ->money('BRL')
-                    ->sortable(),
+                    // Linha do meio: Referência e Badge de Estoque
+                    Split::make([
+                        TextColumn::make('referencia')
+                            ->color('gray')
+                            ->size('xs')
+                            ->formatStateUsing(fn ($state) => $state ? "Ref: {$state}" : 'Sem ref.'),
 
-                TextColumn::make('estoque')
-                    ->label('Estoque')
-                    ->badge()
-                    ->color(fn ($state) => $state > 0 ? 'success' : 'danger')
-                    ->sortable(),
+                        TextColumn::make('estoque.quantidade')
+                            ->badge()
+                            ->label('Estoque')
+                            ->color(fn ($state) => $state > 0 ? 'success' : 'danger')
+                            ->formatStateUsing(fn ($state) => "Qtd: {$state}")
+                            ->grow(false),
+                    ]),
+                ])
+                ->space(3)
+                ->extraAttributes([
+                    'class' => 'p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:border-primary-500 transition',
+                ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('quantidade_medida');//Ex: 
-            $table->decimal('preco_custo',10, 2)->nulltable();
+            $table->decimal('preco_custo',10, 2)->nullable();
             $table->decimal('estoque',10, 2)->default(0);
             $table->timestamps();
         });

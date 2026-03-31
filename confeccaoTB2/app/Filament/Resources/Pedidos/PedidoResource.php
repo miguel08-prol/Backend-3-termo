@@ -83,10 +83,7 @@ class PedidoResource extends Resource
         ]);
     }
 
-    public static function infolist(Schema $schema): Schema
-    {
-        return PedidoInfolist::configure($schema);
-    }
+
 
 public static function table(Table $table): Table
     {

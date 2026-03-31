@@ -3,12 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Estoque extends Model
 {
-// Adicione isso dentro da classe Estoque
-public function estaBaixo()
-{
-    return $this->quantidade <= $this->quantidade_minima;
-}
+
+protected $guarded = [];
+
+    protected $fillable = [
+        'produto_id', 
+        'quantidade', 
+        'quantidade_minima'
+    ];
+
+    /**
+     * Get the product associated with the stock.
+     */
+    public function produto(): BelongsTo
+    {
+        return $this->belongsTo(Produto::class);
+    }
 }
