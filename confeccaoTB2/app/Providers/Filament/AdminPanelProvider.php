@@ -30,6 +30,9 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->favicon(asset('favicon.svg'))
             ->brandName('TB2 Confecção')
+            ->icons([
+                'panels::pages.dashboard.navigation-item' => 'heroicon-o-home',
+            ])
             ->colors([
                 'primary' => Color::Amber,
             ])

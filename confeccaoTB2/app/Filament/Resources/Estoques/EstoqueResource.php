@@ -28,7 +28,11 @@ class EstoqueResource extends Resource
 {
     protected static ?string $model = Estoque::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|\UnitEnum|null $navigationGroup = 'Estoque';
+
+    protected static ?string $navigationLabel = 'Fornecedor';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::ArchiveBox;
 
     protected static ?string $recordTitleAttribute = 'Estoque';
 

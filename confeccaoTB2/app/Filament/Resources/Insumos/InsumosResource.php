@@ -21,7 +21,12 @@ use BackedEnum;
 class InsumosResource extends Resource
 {
     protected static ?string $model = Insumos::class;
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Estoque';
+
+    protected static ?string $navigationLabel = 'Insumo';
+    
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Beaker;
     protected static ?string $recordTitleAttribute = 'nome';
 
     public static function form(Schema $schema): Schema
