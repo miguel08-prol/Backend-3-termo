@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Gradiente Azul Dinâmico (Confiança, Tecnologia e Educação) -->
+    <linearGradient id="safeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+    <!-- Sombra suave para dar profundidade profissional -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Fundo quadrado com cantos arredondados (estilo App moderno) -->
+  <rect width="512" height="512" rx="112" fill="url(#safeGrad)" />
+
+  <!-- Símbolo Central (Escudo + Letra S + Livro) -->
+  <g filter="url(#dropShadow)" transform="translate(256, 256) scale(0.95)">
+    <!-- Asa Esquerda do Livro / Lado do Escudo -->
+    <path d="M -110,-140 C -110,-140 -40,-120 0,-70 C 0,-70 0,60 0,140 C -50,90 -110,60 -110,60 Z" 
+          fill="#FFFFFF" opacity="0.95" />
+    
+    <!-- Asa Direita do Livro / Linha do "S" Fluido -->
+    <path d="M 110,140 C 110,140 40,120 0,70 C 0,70 0,-60 0,-140 C 50,-90 110,-60 110,-60 Z" 
+          fill="#FFFFFF" />
+          
+    <!-- Detalhe interno de Autorização (O "Check" implícito no fluxo do S) -->
+    <path d="M -40,-20 L -10,10 L 50,-40" 
+          fill="none" 
+          stroke="#22C55E" 
+          stroke-width="24" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+  </g>
+</svg>
