@@ -54,5 +54,8 @@ class DatabaseSeeder extends Seeder
                 'notificacoes_push' => false,
             ]
         );
+
+        \App\Models\Turma::factory(50)->create();
+        \App\Models\Authorization::factory(50)->create();
     }
 }
