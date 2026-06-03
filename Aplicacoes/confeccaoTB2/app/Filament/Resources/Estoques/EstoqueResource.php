@@ -30,7 +30,7 @@ class EstoqueResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Estoque';
 
-    protected static ?string $navigationLabel = 'Fornecedor';
+    protected static ?string $navigationLabel = 'Estoque';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ArchiveBox;
 
